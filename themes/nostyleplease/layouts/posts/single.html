@@ -1,0 +1,31 @@
+{{ define "main" }}
+
+{{- with .Params.Cover }}
+    {{ $src := . }}
+    {{ $cover := resources.Get $src }}
+    {{ if not $cover }}
+        {{ $cover = resources.GetRemote $src }}
+    {{ end }}
+    {{ with $cover }}
+        {{ with .Resize (printf "%dx%d webp q90" .Width .Height) }}
+            <picture>
+                <source type="image/webp" srcset="{{ .Permalink }}">
+                <img src="{{ $cover.Permalink }}" class="cover" alt="cover image">
+            </picture>
+        {{ end }}
+    {{ end }}
+{{ end -}}
+
+<article>
+    <p class="post-meta">
+        <time datetime="{{ .Date }}">
+            {{ .Date | time.Format site.Params.theme_config.date_format }}
+        </time>
+    </p>
+
+    <h1>{{ .Title }}</h1>
+
+    {{ .Content }}
+    {{- partial "footer.html" -}}
+</article>
+{{ end }}

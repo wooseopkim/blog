@@ -1,0 +1,36 @@
+name: Create pull request to the blog repository
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  create-pr:
+    runs-on: ubuntu-latest
+    env:
+      PARENT_REPO: ${{ github.repository_owner }}/blog
+      BRANCH: theme/${{ github.sha }}
+      COMMIT_MESSAGE: Bump theme (${{ github.sha }})
+      GH_TOKEN: ${{ secrets.GH_TOKEN }}
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+        with:
+          repository: ${{ env.PARENT_REPO }}
+          submodules: true
+          fetch-depth: 0
+          token: ${{ secrets.GH_TOKEN }}
+      - name: Create new branch and push changes
+        shell: bash
+        run: |
+          git config user.name ${{ github.actor }}
+          git config user.email 10593679+wooseopkim@users.noreply.github.com
+          git submodule update --remote 'themes/*'
+          git checkout -b $BRANCH
+          git add 'themes/*'
+          git commit -m "$COMMIT_MESSAGE"
+          git push --set-upstream origin $BRANCH
+      - name: Create PR
+        run: |
+          gh pr create --repo $PARENT_REPO --head $BRANCH --fill --no-maintainer-edit --label automated

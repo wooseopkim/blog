@@ -1,0 +1,21 @@
+<head>
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  {{ if .IsPage }} <meta name="description" content="{{ .Summary }}">  {{ end }}
+
+  <title>
+    {{ if not .IsHome }}
+      {{ .Title }}
+    {{ else }}
+      {{ $.Site.Title }}
+    {{ end }}
+  </title>
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="{{ $.Site.Params.favicon | relURL }}" />
+  {{ $main := resources.Get "css/main.css" | minify | fingerprint }}
+  <link rel="stylesheet" href="{{ $main.Permalink | relURL }}">
+  {{ if .Params.mathjax }} {{ partial "mathjax.html" . }} {{ end }}
+  <script src="https://unpkg.com/tachyonjs@2.0.0/tachyon.min.js" type="module" crossorigin defer></script>
+</head>

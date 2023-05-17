@@ -1,0 +1,187 @@
+@media (prefers-color-scheme: dark) {
+  body {
+    filter: invert(1);
+    -webkit-font-smoothing: antialiased;
+  }
+
+  img {
+    filter: invert(1);
+  }
+
+  img.ioda {
+    filter: invert(0);
+  }
+}
+
+html, body {
+  background: white;
+}
+
+html {
+  height: 100%;
+}
+
+body {
+  color: black;
+  font-size: 16px;
+  line-height: 1.4;
+  margin: 0;
+  min-height: 100%;
+  overflow-wrap: break-word;
+}
+
+@media (min-width: 720px) {
+  .post-meta {
+    text-align: right;
+    position: absolute;
+    margin: 0;
+    right: 0;
+  }
+}
+
+article {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+}
+
+h2, h3, h4, h5, h6 {
+  margin-top: 3rem;
+}
+
+hr {
+  margin: 2rem 0;
+}
+
+p:not(.post-meta) {
+  margin-top: 0;
+  margin-bottom: 0;
+  text-align: justify;
+  text-indent: 1em;
+}
+
+article > p:not(:last-child) {
+  margin-bottom: 1rem;
+}
+
+article > h1 {
+  margin: 0;
+}
+
+article > h1 + * {
+  margin-top: 2rem !important;
+}
+
+li {
+  margin: 0.4rem 0;
+}
+
+.w {
+  max-width: 640px;
+  margin: 0 auto;
+  padding-left: 2rem;
+  padding-right: 2rem;
+  padding-top: 33vh;
+  padding-bottom: 50vh;
+}
+
+hr {
+  text-align: center;
+  border: 0;
+}
+
+article > * + hr {
+  margin-top: 1rem;
+}
+
+hr::before {
+  content: '//////////'
+}
+
+pre {
+  padding: 1em;
+}
+
+table {
+  width: 100%;
+}
+
+table, th, td {
+  border: thin solid black;
+  border-collapse: collapse;
+  padding: 0.4rem;
+}
+
+code {
+  color: white;
+  background: black;
+  padding: 0.1em 0.2em;
+  font-size: 95%;
+}
+
+blockquote {
+  font-style: italic;
+  border: thin solid black;
+  padding: 1rem;
+}
+
+blockquote p {
+  margin: 0;
+}
+
+img {
+  max-width: 100%;
+  display: block;
+  margin: 0 auto;
+}
+
+img.cover {
+  margin-bottom: 2rem;
+}
+
+figure {
+  margin: 4rem 0;
+}
+
+article > * + figure {
+  margin-top: 3rem;
+}
+
+figcaption > p {
+  margin-top: 0.5rem !important;
+  text-align: center !important;
+  opacity: 0.5;
+}
+
+ol,
+ul {
+  margin-top: 0;
+}
+
+ol {
+  padding-left: 1.5em;
+}
+
+article a.backlink {
+  margin-top: 2rem;
+  place-self: flex-start;
+}
+
+a.backlink {
+  display: inline;
+}
+
+* {
+  font-family: '돋움체', 'Courier New', Courier, monospace;
+}
+
+*:target {
+  background: yellow;
+}
+
+code.has-jax {
+  -webkit-font-smoothing: antialiased;
+  background: inherit !important;
+  border: none !important;
+  font-size: 100%;
+}
