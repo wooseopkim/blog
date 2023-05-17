@@ -1,0 +1,12 @@
+baseURL = "https://blog.wooseop.kim/"
+title = "花無十日紅"
+languageCode = "ko"
+defaultContentLanguage = "ko"
+hasCJKLanguage = true
+theme = "nostyleplease"
+
+[minify]
+  minifyOutput = true
+
+[taxonomies]
+  post = "게시물"
