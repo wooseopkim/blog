@@ -22,9 +22,7 @@ jobs:
           if [[ $OWNER == $AUTHOR ]]; then
             OK=true
           fi
-          echo value=OK >> $GITHUB_OUTPUT
+          echo value="$OK" >> $GITHUB_OUTPUT
       - if: ${{ steps.ownership.outputs.value == 'true' }}
         name: Merge eligible PR
         run: gh pr merge $PR_NUMBER --auto --delete-branch
-      
-
