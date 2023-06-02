@@ -31,4 +31,4 @@ jobs:
         # it was fixed in [2.29.0](https://github.com/cli/cli/commit/39bd9aafdcfe60cfdc3b78ef98f315f5f898e918)
         # but the runner has [2.28.0](https://github.com/actions/runner-images/blob/main/images/linux/Ubuntu2204-Readme.md?plain=1#L118)
         # using checkout action might fix it, but there's "Automatically delete head branches" in repo settings
-        run: gh pr merge $PR_NUMBER --auto
+        run: gh pr merge $PR_NUMBER --auto --merge
