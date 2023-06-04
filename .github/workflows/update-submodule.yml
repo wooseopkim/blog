@@ -1,0 +1,23 @@
+name: Update submodule reference
+
+on:
+  workflow_dispatch:
+    inputs:
+      submodule-path:
+        type: string
+        required: true
+
+jobs:
+  update:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Update
+        env:
+          SUBMODULE_PATH: ${{ inputs.submodule-path }}
+        run: |
+          git config user.name github-actions[bot]
+          git config user.email github-actions[bot]@users.noreply.github.com
+          git submodule update --remote "$SUBMODULE_PATH"
+          git add "$SUBMODULE_PATH"
+          git commit -m "Update submodule at $SUBMODULE_PATH"
+          git push
