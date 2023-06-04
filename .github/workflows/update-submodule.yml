@@ -24,5 +24,5 @@ jobs:
           git config user.email github-actions[bot]@users.noreply.github.com
           git submodule update --remote "$SUBMODULE_PATH"
           git add "$SUBMODULE_PATH"
-          git commit -m "Update submodule at $SUBMODULE_PATH"
+          git commit -m "Update submodule: $(git submodule status $SUBMODULE_PATH)"
           git push
