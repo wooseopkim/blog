@@ -1,7 +1,3 @@
-[submodule "themes/nostyleplease"]
-	path = themes/nostyleplease
-	url = https://github.com/wooseopkim/hugo-theme-nostyleplease
-
 [submodule "content"]
 	path = content
 	url = https://github.com/wooseopkim/blog-content

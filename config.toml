@@ -3,10 +3,12 @@ title = "花無十日紅"
 languageCode = "ko"
 defaultContentLanguage = "ko"
 hasCJKLanguage = true
-theme = "nostyleplease"
 
 [minify]
-  minifyOutput = true
+minifyOutput = true
 
 [taxonomies]
-  post = "게시물"
+post = "게시물"
+
+[params]
+date_format = "2006-01-02 03PM"

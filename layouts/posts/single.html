@@ -1,0 +1,29 @@
+{{ define "main" }}
+
+{{ with .Params.Cover }}
+    {{ $cover := resources.Get . }}
+    {{ if not $cover }}
+        {{ $cover = resources.GetRemote . }}
+    {{ end }}
+    {{ with $cover }}
+        {{ with .Resize (printf "%dx%d webp q85" .Width .Height) }}
+            <picture class="cover">
+                <source type="image/webp" srcset="{{ .RelPermalink }}">
+                <img src="{{ $cover.RelPermalink }}" alt="표지 이미지">
+            </picture>
+        {{ end }}
+    {{ end }}
+{{ end }}
+
+<article>
+    <header class="post-meta">
+        <time datetime="{{ .Date }}">
+            {{ .Date | time.Format site.Params.date_format }}
+        </time>
+    </header>
+
+    <h1>{{ .Title }}</h1>
+
+    {{ .Content }}
+</article>
+{{ end }}
