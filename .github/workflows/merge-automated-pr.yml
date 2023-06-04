@@ -9,6 +9,8 @@ jobs:
   merge-pr:
     if: contains(github.event.pull_request.labels.*.name, 'automated')
     runs-on: ubuntu-latest
+    permissions:
+      pull-requests: write
     env:
       PR_NUMBER: ${{ github.event.pull_request.number }}
       GH_TOKEN: ${{ github.token }}
