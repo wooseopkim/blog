@@ -37,12 +37,12 @@ body > main {
   padding-bottom: 8rem;
 }
 
-body > main > :not(picture.cover) {
+body > main > :not(.cover) {
   margin-left: 1rem;
   margin-right: 1rem;
 }
 
-body > main > picture.cover ~ * {
+body > main > .cover ~ * {
   place-self: center;
 }
 
@@ -142,15 +142,24 @@ img {
   max-width: 100%;
   display: block;
   margin: 0 auto;
+  object-fit: contain;
 }
 
-picture.cover img {
+img[data-placeholder-src] {
+  cursor: progress;
+}
+
+.cover {
+  margin: 0;
+}
+
+.cover img {
   width: 100vw;
   height: 50vh;
   object-fit: cover;
 }
 
-figure {
+figure:not(.cover) {
   margin: 4rem 0;
 }
 
