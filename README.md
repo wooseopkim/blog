@@ -1,7 +1,10 @@
 # Blog
 
-Repository for my personal Hugo blog. The live blog is at <https://blog.wooseop.kim>.
+Repository for my personal blog. The live blog is at <https://blog.wooseop.kim>.
 
-### License
-
-I used to use a fork of [`Masellum/hugo-theme-nostyleplease`](https://github.com/Masellum/hugo-theme-nostyleplease). Some lines of the files in `layouts` originated from the theme. If you'd like, you can see the history [here](https://github.com/wooseopkim/hugo-theme-nostyleplease).
+- Fast and simple, as all websites should be.
+- Uses [`thumbhash`](https://github.com/evanw/thumbhash), a better alternative to `blurhash`, for placeholders.
+- Written in [Astro](https://github.com/withastro/astro).
+- Has an RSS feed.
+- Uses ["cookieless"](https://posthog.com/tutorials/cookieless-tracking) [PostHog](https://github.com/PostHog/posthog) for analytics.
+- Prerenders links with [`Tachyon`](https://github.com/weebney/tachyon/).

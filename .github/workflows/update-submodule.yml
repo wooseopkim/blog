@@ -10,18 +10,19 @@ on:
 jobs:
   update:
     runs-on: ubuntu-latest
+    permissions:
+      contents: write
     steps:
       - uses: actions/checkout@v3
         with:
           submodules: true
           token: ${{ secrets.GH_PAT }}
           fetch-depth: 1
+      - uses: wooseopkim/actions-bot@v1
       - name: Update
         env:
           SUBMODULE_PATH: ${{ inputs.submodule-path }}
         run: |
-          git config user.name github-actions[bot]
-          git config user.email github-actions[bot]@users.noreply.github.com
           git submodule update --remote "$SUBMODULE_PATH"
           git add "$SUBMODULE_PATH"
           git commit -m "Update submodule: $(git submodule status $SUBMODULE_PATH)"

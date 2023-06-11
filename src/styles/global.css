@@ -1,0 +1,5 @@
+@import url('modern-normalize');
+
+*, code {
+  font-family: '돋움체', 'Courier New', Courier, monospace;
+}

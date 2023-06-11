@@ -1,0 +1,19 @@
+---
+interface Props {
+  date: Date;
+}
+
+const { date } = Astro.props;
+
+const yy = date.getFullYear() % 100;
+const MM = (date.getMonth() + 1).toString().padStart(2, '0');
+const dd = date.getDate().toString().padStart(2, '0');
+const am = date.getHours() < 12 ? 'AM' : 'PM';
+const hh = (date.getHours() % 12).toString().padStart(2, '0');
+
+const formatted = `${yy}${MM}${dd} ${am}${hh}`;
+---
+
+<time datetime={date.toISOString()}>
+  {formatted}
+</time>

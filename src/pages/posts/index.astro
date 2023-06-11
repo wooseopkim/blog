@@ -1,0 +1,47 @@
+---
+import Layout from '@layouts/Layout.astro';
+import FormattedDate from '@components/FormattedDate.astro';
+import { getPosts } from '@lib/posts';
+import Navigation from '@components/Navigation.astro';
+
+const posts = await getPosts();
+---
+
+<Layout title="기록">
+  <main>
+    <ul>
+      {
+        posts.map((x) => (
+          <li>
+            <FormattedDate date={x.data.date} />
+            <a href={x.$link}>{x.data.title}</a>
+          </li>
+        ))
+      }
+      <li>
+        <Navigation to="home" />
+      </li>
+    </ul>
+  </main>
+</Layout>
+
+<style>
+  main {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    flex-grow: 1;
+    margin-block-start: 20vh;
+    margin-block-end: 20vh;
+    margin-inline-end: 2ch;
+  }
+
+  ul {
+    max-width: min(80ch, 100%);
+    margin: auto;
+  }
+
+  li a:not(:first-child) {
+    margin-inline-start: 1ch;
+  }
+</style>

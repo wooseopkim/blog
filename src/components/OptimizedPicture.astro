@@ -1,0 +1,127 @@
+---
+import type { Props as BaseProps } from '@astrojs/image/components/Picture.astro';
+import * as thumbhash from 'thumbhash';
+import sharp from 'sharp';
+import path from 'node:path';
+import { getPicture } from '@astrojs/image';
+
+type OptionalKeys = 'widths' | 'alt';
+
+type Props = Partial<Pick<BaseProps, OptionalKeys>> &
+  Omit<BaseProps, OptionalKeys | 'src'> & {
+    // disables remote image source
+    src: Exclude<BaseProps['src'], string>;
+  } & {
+    caption?: boolean;
+  };
+
+const {
+  src,
+  alt = await getAlt(src),
+  widths = [320, 640, 1080],
+  formats = ['avif'],
+  ...rest
+} = Astro.props;
+
+const picture = await getPicture({ src, alt, widths, formats });
+const metadata = await getMetadata(src);
+const aspectRatio = metadata.height / metadata.width;
+
+const placeholder = await new Promise<string>((resolve, reject) => {
+  const width = 8;
+  const input = fileSystemPath(metadata.src);
+  sharp(input)
+    .raw()
+    .ensureAlpha()
+    .resize(width, Math.round(width * aspectRatio))
+    .toBuffer((err, buffer, info) => {
+      if (err) {
+        reject(err);
+        return;
+      }
+      const { width, height } = info;
+      const dataUrl = thumbhash.rgbaToDataURL(width, height, buffer);
+      resolve(dataUrl);
+    });
+});
+
+async function getAlt(src: Props['src']) {
+  const s = await asString(src);
+  const filename =
+    s.match(/(?<filename>[^/]+?)(\.\w+?)?$/)?.groups?.filename ?? '';
+  return decodeURIComponent(filename);
+}
+
+async function asString(src: Props['src']) {
+  const metadata = await getMetadata(src);
+  return metadata.src;
+}
+
+async function getMetadata(src: Props['src']) {
+  if (src instanceof Promise) {
+    return (await src).default;
+  }
+  return src;
+}
+
+function fileSystemPath(src: string) {
+  // `metadata.src` is
+  // dev: /@astroimage/<project root>/src/content/posts/<filename>.png
+  // prod: /_astro/<filename>.<hash>.png
+  if (import.meta.env.PROD) {
+    return path.join(process.cwd(), 'dist', src);
+  }
+  return decodeURIComponent(src.replace(/^\/@astroimage/, ''));
+}
+---
+
+<figure>
+  <img
+    class="placeholder"
+    src={placeholder}
+    style={`aspect-ratio: ${1 / aspectRatio}`}
+    alt=""
+  />
+  <picture {...rest}>
+    {
+      picture.sources.map(
+        (
+          { srcset, type }
+          // temporary workaround for https://github.com/withastro/astro/issues/7338
+        ) => (
+          <source
+            {type}
+            srcset={srcset.replace(/[^ .]+?\.\w+/g, (s) =>
+              s.replaceAll(' ', '%20')
+            )}
+          />
+        )
+      )
+    }
+    <img decoding="async" loading="lazy" {alt} />
+  </picture>
+  <figcaption>{rest.caption && alt}</figcaption>
+</figure>
+
+<style>
+  figure {
+    display: grid;
+    width: 100%;
+    margin: 0;
+  }
+
+  figure > :is(img, picture) {
+    grid-area: 1/1/1/1;
+  }
+
+  img {
+    width: 100%;
+    object-fit: cover;
+    background-color: white;
+  }
+
+  figcaption {
+    opacity: 0.5;
+    margin: auto;
+  }
+</style>

@@ -1,0 +1,45 @@
+---
+import BaseHead from '@components/BaseHead.astro';
+
+interface Props {
+  title: string;
+  description?: string;
+}
+
+const { title, description } = Astro.props;
+---
+
+<script>
+  import 'tachyonjs';
+  import { posthog } from 'posthog-js';
+
+  posthog.init('phc_7DCNH1W0INf8s5My3H1qJiOuGjI9prPLZlnqB4fFGfG', {
+    api_host: 'https://app.posthog.com',
+    persistence: 'memory',
+  });
+</script>
+
+<html lang="ko">
+  <head>
+    <BaseHead {title} {description} />
+    <slot name="head" />
+  </head>
+  <body>
+    <slot />
+    <style>
+      html {
+        height: 100%;
+      }
+
+      body {
+        line-height: 1.6;
+        width: 100%;
+        min-height: 100%;
+        overflow-wrap: break-word;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+      }
+    </style>
+  </body>
+</html>

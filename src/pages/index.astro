@@ -1,0 +1,49 @@
+---
+import Navigation from '@components/Navigation.astro';
+import { SITE_TITLE, SITE_DESCRIPTION } from '../consts';
+import Layout from '@layouts/Layout.astro';
+import { getPosts } from '@lib/posts';
+
+const recentPosts = (await getPosts()).slice(0, 5);
+---
+
+<Layout title={SITE_TITLE} description={SITE_DESCRIPTION}>
+  <main>
+    <h1>{SITE_TITLE}</h1>
+    <ul>
+      <li>
+        <a href="https://wooseop.kim">헛소리를 합니다. 누구나 그렇듯이.</a>
+      </li>
+      <li>
+        기록
+        <ul>
+          {
+            recentPosts.map((x) => (
+              <li>
+                <a href={x.$link}>{x.data.title}</a>
+              </li>
+            ))
+          }
+          <li>
+            <Navigation to="list" text="..." />
+          </li>
+        </ul>
+      </li>
+      <li>
+        <Navigation to="source" />
+      </li>
+      <li>
+        <a href="/index.xml">구독</a>
+      </li>
+    </ul>
+  </main>
+</Layout>
+
+<style>
+  main {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    flex-grow: 1;
+  }
+</style>

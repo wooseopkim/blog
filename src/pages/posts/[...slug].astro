@@ -1,0 +1,164 @@
+---
+import Layout from '@layouts/Layout.astro';
+import FormattedDate from '@components/FormattedDate.astro';
+import OptimizedPicture from '@components/OptimizedPicture.astro';
+import path from 'node:path';
+import type { ImageMetadata } from 'astro';
+import { getPosts, type Post } from '@lib/posts';
+import Navigation from '@components/Navigation.astro';
+
+export async function getStaticPaths() {
+  const posts = await getPosts();
+  return posts.map((post, i) => ({
+    params: { slug: post.slug },
+    props: {
+      post,
+      context: {
+        prev: posts[i - 1],
+        next: posts[i + 1],
+      },
+    } as Props,
+  }));
+}
+type Props = {
+  post: Post;
+  context: {
+    prev: Post;
+    next: Post;
+  };
+};
+
+const { post, context } = Astro.props;
+const { Content } = await post.render();
+
+const encoder = new TextEncoder();
+const bytes = encoder.encode(post.body).byteLength;
+
+const cover = post.data.cover ? getCover(post.id) : undefined;
+
+async function getCover(id: string): Promise<{ default: ImageMetadata }> {
+  return await import(
+    `../../content/posts/${id.replace(path.extname(id), '')}.png`
+  ).catch(() =>
+    import(`../../content/posts/${id.replace(path.extname(id), '')}.jpg`)
+  );
+}
+---
+
+<Layout title={post.data.title}>
+  <main>
+    <header>
+      {cover && <OptimizedPicture src={cover} alt="표지 이미지" />}
+    </header>
+    <article data-cover={Boolean(cover)}>
+      <h1>{post.data.title}</h1>
+      <FormattedDate date={post.data.date} />
+      <div>{bytes}바이트</div>
+      <Content components={{ OptimizedPicture }} />
+      <footer>
+        <nav>
+          <Navigation to="home" />
+          <Navigation to="list" />
+        </nav>
+        <nav>
+          {context.prev && <a href={context.prev.$link}>이전</a>}
+          {context.next && <a href={context.next.$link}>다음</a>}
+        </nav>
+      </footer>
+    </article>
+  </main>
+</Layout>
+
+<style>
+  main {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    flex-grow: 1;
+    width: 100%;
+
+    @media (max-width: 720px) {
+      justify-content: flex-end;
+    }
+  }
+
+  header :global(img) {
+    max-height: 50vh;
+  }
+
+  article {
+    max-width: min(80ch, 100%);
+    margin: auto;
+    margin-block-end: 20vh;
+
+    @media (max-width: 720px) {
+      margin-block-end: 4rem;
+    }
+
+    &[data-cover] {
+      margin-block-start: 6vmin;
+    }
+
+    &:not([data-cover]) {
+      margin-block-start: 20vh;
+    }
+
+    & > :global(:not(:is(ol, ul))) {
+      padding-inline-start: 1rem;
+    }
+
+    & > :global(*) {
+      padding-inline-end: 1rem;
+    }
+
+    & > :global(p) {
+      text-align: justify;
+    }
+
+    & > :global(p)::first-letter {
+      margin-inline-start: 2ch;
+    }
+
+    & :global(hr) {
+      text-align: center;
+      border: 0;
+      height: initial;
+    }
+
+    & :global(hr)::before {
+      content: '//////////';
+    }
+
+    & :global(code) {
+      color: white;
+      background: black;
+      padding: 0.1em 0.2em;
+      font-size: 95%;
+    }
+
+    & :global(blockquote) {
+      font-style: italic;
+      border: thin solid black;
+      padding: 1rem;
+    }
+  }
+
+  footer {
+    display: flex;
+    justify-content: space-between;
+    margin-block-start: 1.6rem;
+  }
+
+  footer nav > :global(*) {
+    margin-inline-start: 1ch;
+    margin-inline-end: 1ch;
+  }
+
+  footer nav:first-child > :global(:first-child) {
+    margin-inline-start: revert;
+  }
+
+  footer nav:last-child > :global(:last-child) {
+    margin-inline-end: revert;
+  }
+</style>

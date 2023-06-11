@@ -1,3 +1,3 @@
 [submodule "content"]
-	path = content
+	path = src/content
 	url = https://github.com/wooseopkim/blog-content

@@ -1,0 +1,36 @@
+---
+type Link = {
+  href: string;
+  text: string;
+  target?: string;
+};
+
+const home: Link = {
+  href: '/',
+  text: '대문',
+};
+const list: Link = {
+  href: '/posts',
+  text: '기록',
+};
+const source: Link = {
+  href: 'https://github.com/wooseopkim/blog',
+  text: '코드',
+  target: '_blank',
+};
+const links = {
+  home,
+  list,
+  source,
+};
+
+type Props = {
+  to: keyof typeof links;
+  text?: string;
+};
+
+const { to, text } = Astro.props;
+const { href, text: defaultText, target } = links[to];
+---
+
+<a {href} {target}>{text ?? defaultText}</a>
