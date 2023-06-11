@@ -91,7 +91,7 @@ function fileSystemPath(src: string) {
         ) => (
           <source
             {type}
-            srcset={srcset.replace(/[^ .]+?\.\w+/g, (s) =>
+            srcset={srcset.replace(/[^,]+?\.\w+(?= \d+w)/g, (s) =>
               s.replaceAll(' ', '%20')
             )}
           />
