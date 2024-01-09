@@ -16,6 +16,9 @@ jobs:
           token: ${{ secrets.GH_PAT }}
           fetch-depth: 1
 
+      - name: Set timezone
+        run: sudo timedatectl set-timezone Asia/Seoul
+
       - uses: actions/setup-node@v3
         with:
           node-version: 18
