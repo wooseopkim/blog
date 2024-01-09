@@ -16,7 +16,7 @@ const tz = (timezoneOffset > 0 ? '-' : '+') +
   ':' +
   Math.abs(timezoneOffset % 60).toString().padStart(2, '0');
 
-const formatted = `${yy}${MM}${dd} ${am}${hh} ${tz}`;
+const formatted = `${yy}-${MM}-${dd} ${am}${hh} ${tz}`;
 ---
 
 <time datetime={date.toISOString()}>
