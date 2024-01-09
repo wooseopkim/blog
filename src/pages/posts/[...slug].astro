@@ -141,6 +141,11 @@ async function getCover(id: string): Promise<{ default: ImageMetadata }> {
       border: thin solid black;
       padding: 1rem;
     }
+
+    & :global(:is(th, td, tr)) {
+      border: 1px solid black;
+      padding: 0.5rem;
+    }
   }
 
   footer {
