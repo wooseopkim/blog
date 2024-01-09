@@ -11,7 +11,7 @@ const dd = date.getDate().toString().padStart(2, '0');
 const am = date.getHours() < 12 ? 'AM' : 'PM';
 const hh = (date.getHours() % 12).toString().padStart(2, '0');
 const timezoneOffset = date.getTimezoneOffset();
-const tz = (timezoneOffset < 0 ? '+' : '-') +
+const tz = (timezoneOffset > 0 ? '-' : '+') +
   Math.floor(Math.abs(timezoneOffset / 60)).toString().padStart(2, '0') +
   ':' +
   Math.abs(timezoneOffset % 60).toString().padStart(2, '0');
