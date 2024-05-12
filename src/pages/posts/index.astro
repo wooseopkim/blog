@@ -41,7 +41,17 @@ const posts = await getPosts();
     margin: auto;
   }
 
-  li a:not(:first-child) {
-    margin-inline-start: 1ch;
+  @media (min-width: 720px) {
+    li a:not(:first-child) {
+      margin-inline-start: 1ch;
+    }
+  }
+
+  @media (max-width: 720px) {
+    li a {
+      display: block;
+      min-width: 100%;
+      margin-inline-start: initial;
+    }
   }
 </style>
