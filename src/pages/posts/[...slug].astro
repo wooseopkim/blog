@@ -73,13 +73,10 @@ async function getCover(id: string): Promise<{ default: ImageMetadata }> {
   main {
     display: flex;
     flex-direction: column;
-    justify-content: center;
+    align-items: center;
+    justify-content: flex-end;
     flex-grow: 1;
     width: 100%;
-
-    @media (max-width: 720px) {
-      justify-content: flex-end;
-    }
   }
 
   header :global(img) {
@@ -88,12 +85,7 @@ async function getCover(id: string): Promise<{ default: ImageMetadata }> {
 
   article {
     max-width: min(80ch, 100%);
-    margin: auto;
-    margin-block-end: 20vh;
-
-    @media (max-width: 720px) {
-      margin-block-end: 4rem;
-    }
+    margin-block-end: var(--padding-page-bottom);
 
     &[data-cover] {
       margin-block-start: 6vmin;

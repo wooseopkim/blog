@@ -1,5 +1,13 @@
 @import url('modern-normalize');
 
+:root {
+  --padding-page-bottom: 12vh;
+
+  @media (max-width: 720px) {
+    --padding-page-bottom: 5vh;
+  }
+}
+
 *, code {
   font-family: '돋움체', 'Courier New', Courier, monospace;
 }

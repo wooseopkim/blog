@@ -43,7 +43,12 @@ const recentPosts = (await getPosts()).slice(0, 5);
   main {
     display: flex;
     flex-direction: column;
-    justify-content: center;
+    justify-content: flex-end;
     flex-grow: 1;
+    padding-block-end: var(--padding-page-bottom);
+  }
+
+  ul {
+    margin-block-end: 0;
   }
 </style>
