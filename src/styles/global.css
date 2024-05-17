@@ -11,3 +11,12 @@
 *, code {
   font-family: '돋움체', 'Courier New', Courier, monospace;
 }
+
+main {
+  display: flex;
+  flex-grow: 1;
+  margin-block-start: 20vh;
+  margin-block-end: var(--padding-page-bottom);
+  justify-content: flex-end;
+  flex-direction: column;
+}
