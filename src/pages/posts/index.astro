@@ -1,27 +1,61 @@
 ---
 import Layout from '@layouts/Layout.astro';
 import FormattedDate from '@components/FormattedDate.astro';
-import { getPosts } from '@lib/posts';
+import { type Post, getPosts } from '@lib/posts';
 import Navigation from '@components/Navigation.astro';
 
 const posts = await getPosts();
+
+type Entry =
+  | {
+      type: 'header';
+      content: string;
+    }
+  | {
+      type: 'article';
+      content: Post;
+    };
+
+const entries: Entry[] = posts.reduce<Entry[]>((entries, post) => {
+  const currentYear = post.data.date.getFullYear();
+  const lastEntry = entries[entries.length - 1];
+  const yearChanged =
+    lastEntry?.type === 'article' &&
+    lastEntry.content.data.date.getFullYear() !== currentYear;
+  const header: Entry[] =
+    entries.length === 0 || yearChanged
+      ? [
+          {
+            type: 'header',
+            content: String(currentYear),
+          } as const,
+        ]
+      : [];
+
+  return [...entries, ...header, { type: 'article', content: post }];
+}, []);
 ---
 
 <Layout title="기록">
   <main>
     <ul>
+      <!-- {
+        JSON.stringify(entries)
+      } -->
       {
-        posts.map((x) => (
-          <li>
-            <FormattedDate date={x.data.date} />
-            <a href={x.$link}>{x.data.title}</a>
-          </li>
-        ))
+        entries.map(({ type, content }) =>
+          type === 'header' ? (
+            <h3>{content}</h3>
+          ) : (
+            <li>
+              <FormattedDate date={content.data.date} />
+              <a href={content.$link}>{content.data.title}</a>
+            </li>
+          )
+        )
       }
-      <li>
-        <Navigation to="home" />
-      </li>
     </ul>
+    <Navigation to="home" />
   </main>
 </Layout>
 
@@ -53,5 +87,10 @@ const posts = await getPosts();
       min-width: 100%;
       margin-inline-start: initial;
     }
+  }
+
+  ul ~ :global(:last-child) {
+    margin-block-start: 4rem;
+    text-align: end;
   }
 </style>
