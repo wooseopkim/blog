@@ -39,9 +39,6 @@ const entries: Entry[] = posts.reduce<Entry[]>((entries, post) => {
 <Layout title="기록">
   <main>
     <ul>
-      <!-- {
-        JSON.stringify(entries)
-      } -->
       {
         entries.map(({ type, content }) =>
           type === 'header' ? (
