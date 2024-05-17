@@ -20,3 +20,7 @@ main {
   justify-content: flex-end;
   flex-direction: column;
 }
+
+article {
+  max-width: min(60ch, 100%);
+}

@@ -9,6 +9,10 @@ const home: Link = {
   href: '/',
   text: '대문',
 };
+const about: Link = {
+  href: '/about',
+  text: '소개',
+};
 const list: Link = {
   href: '/posts',
   text: '기록',
@@ -20,9 +24,10 @@ const source: Link = {
 };
 const links = {
   home,
+  about,
   list,
   source,
-};
+} as const;
 
 type Props = {
   to: keyof typeof links;

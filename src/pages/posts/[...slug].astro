@@ -79,8 +79,6 @@ async function getCover(id: string): Promise<{ default: ImageMetadata }> {
   }
 
   article {
-    max-width: min(80ch, 100%);
-
     &[data-cover] {
       margin-block-start: 6vmin;
     }
