@@ -1,11 +1,14 @@
 ---
 import Navigation from '@components/Navigation.astro';
 import Layout from '@layouts/Layout.astro';
+import profile from './profile.jpg';
+import OptimizedPicture from '@components/OptimizedPicture.astro';
 ---
 
 <Layout title="소개">
   <main>
     <article>
+      <OptimizedPicture src={profile} alt="사진" />
       <p>
         김우섭입니다. 서울대학교 불어교육과를 졸업했으며, 카카오에서 백엔드
         엔지니어로 일하고 있습니다. 펭귄을 사랑합니다. 남는 시간에는 소설과 시를
