@@ -1,4 +1,4 @@
-import { CollectionEntry, getCollection } from 'astro:content';
+import { type CollectionEntry, getCollection } from 'astro:content';
 
 type RawPost = CollectionEntry<typeof collection>;
 

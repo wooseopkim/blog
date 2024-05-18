@@ -1,29 +1,23 @@
 ---
-import type { Props as BaseProps } from '@astrojs/image/components/Picture.astro';
+import { Picture, type LocalImageProps as BaseProps } from 'astro:assets';
 import * as thumbhash from 'thumbhash';
 import sharp from 'sharp';
 import path from 'node:path';
-import { getPicture } from '@astrojs/image';
 
 type OptionalKeys = 'widths' | 'alt';
 
 type Props = Partial<Pick<BaseProps, OptionalKeys>> &
-  Omit<BaseProps, OptionalKeys | 'src'> & {
-    // disables remote image source
-    src: Exclude<BaseProps['src'], string>;
-  } & {
+  Omit<BaseProps, OptionalKeys> & {
     caption?: boolean;
   };
 
 const {
   src,
   alt = await getAlt(src),
-  widths = [320, 640, 1080],
-  formats = ['avif'],
+  format = ['avif'],
   ...rest
 } = Astro.props;
 
-const picture = await getPicture({ src, alt, widths, formats });
 const metadata = await getMetadata(src);
 const aspectRatio = metadata.height / metadata.width;
 
@@ -66,40 +60,24 @@ async function getMetadata(src: Props['src']) {
 
 function fileSystemPath(src: string) {
   // `metadata.src` is
-  // dev: /@astroimage/<project root>/src/content/posts/<filename>.png
+  // dev: /@fs/<project root>/src/content/posts/<filename>.png
   // prod: /_astro/<filename>.<hash>.png
   if (import.meta.env.PROD) {
     return path.join(process.cwd(), 'dist', src);
   }
-  return decodeURIComponent(src.replace(/^\/@astroimage/, ''));
+  return decodeURIComponent(src.replace(/^\/@fs/, '').replace(/\?.+?$/, ''));
 }
 ---
 
 <figure>
-  <img
-    class="placeholder"
-    src={placeholder}
-    style={`aspect-ratio: ${1 / aspectRatio}`}
-    alt=""
+  <img class="placeholder" src={placeholder} alt="" />
+  <Picture
+    {src}
+    {alt}
+    formats={[format].flat()}
+    decoding="async"
+    loading="lazy"
   />
-  <picture {...rest}>
-    {
-      picture.sources.map(
-        (
-          { srcset, type }
-          // temporary workaround for https://github.com/withastro/astro/issues/7338
-        ) => (
-          <source
-            {type}
-            srcset={srcset.replace(/[^,]+?\.\w+(?= \d+w)/g, (s) =>
-              s.replaceAll(' ', '%20')
-            )}
-          />
-        )
-      )
-    }
-    <img decoding="async" loading="lazy" {alt} />
-  </picture>
   <figcaption>{rest.caption && alt}</figcaption>
 </figure>
 
