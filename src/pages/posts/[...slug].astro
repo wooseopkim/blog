@@ -47,10 +47,10 @@ async function getCover(id: string): Promise<{ default: ImageMetadata }> {
 
 <Layout title={post.data.title}>
   <main>
-    <header>
-      {cover && <OptimizedPicture src={cover} alt="표지 이미지" />}
-    </header>
     <article data-cover={Boolean(cover)}>
+      <header>
+        {cover && <OptimizedPicture src={cover} alt="표지 이미지" />}
+      </header>
       <h1>{post.data.title}</h1>
       <FormattedDate date={post.data.date} />
       <div>{bytes}바이트</div>

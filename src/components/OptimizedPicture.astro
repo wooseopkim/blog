@@ -84,18 +84,16 @@ function fileSystemPath(src: string) {
 <style>
   figure {
     display: grid;
-    width: 100%;
     margin: 0;
   }
 
-  figure > :is(img, picture) {
+  figure > :global(:is(img, picture)) {
     grid-area: 1/1/1/1;
   }
 
   img {
     width: 100%;
-    object-fit: cover;
-    background-color: white;
+    height: 100%;
   }
 
   figcaption {
