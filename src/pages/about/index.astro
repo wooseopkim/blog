@@ -19,7 +19,12 @@ import OptimizedPicture from '@components/OptimizedPicture.astro';
         사람을 좋아합니다. 방송에 나온 적이 있고, 실내외 텃밭을 가꾼 적이
         있으며, 특이한 외주를 해본 적 있습니다.
       </p>
-      <Navigation to="home" />
+      <footer>
+        <Navigation to="home" />
+        <a href="https://open.kakao.com/me/wooseop" target="_blank"
+          >말 걸어보기</a
+        >
+      </footer>
     </article>
   </main>
 </Layout>
@@ -27,5 +32,10 @@ import OptimizedPicture from '@components/OptimizedPicture.astro';
 <style>
   main {
     align-items: center;
+  }
+
+  footer {
+    display: flex;
+    justify-content: space-between;
   }
 </style>
