@@ -69,17 +69,46 @@ function fileSystemPath(src: string) {
 }
 ---
 
-<figure>
-  <img class="placeholder" src={placeholder} alt="" />
-  <Picture
-    {src}
-    {alt}
-    formats={[format].flat()}
-    decoding="async"
-    loading="lazy"
-  />
-  <figcaption>{rest.caption && alt}</figcaption>
-</figure>
+<script>
+  /* eslint-disable prettier/prettier */
+  // https://github.com/withastro/prettier-plugin-astro/issues/407
+  class OptimizedPicture extends HTMLElement {
+    /* eslint-enable prettier/prettier */
+    constructor() {
+      super();
+
+      const placeholder =
+        this.querySelector<HTMLImageElement>('img.placeholder');
+      if (placeholder === null) {
+        return;
+      }
+      const img = this.querySelector<HTMLImageElement>('img:not(.placeholder)');
+      if (img === null) {
+        return;
+      }
+
+      img.addEventListener('load', () => {
+        placeholder.dataset['hidden'] = String(true);
+      });
+    }
+  }
+
+  customElements.define('optimized-picture', OptimizedPicture);
+</script>
+
+<optimized-picture>
+  <figure>
+    <img class="placeholder" src={placeholder} alt="" />
+    <Picture
+      {src}
+      {alt}
+      formats={[format].flat()}
+      decoding="async"
+      loading="lazy"
+    />
+    <figcaption>{rest.caption && alt}</figcaption>
+  </figure>
+</optimized-picture>
 
 <style>
   figure {
@@ -94,6 +123,10 @@ function fileSystemPath(src: string) {
   img {
     width: 100%;
     height: 100%;
+  }
+
+  img.placeholder[data-hidden='true'] {
+    opacity: 0;
   }
 
   figcaption {
