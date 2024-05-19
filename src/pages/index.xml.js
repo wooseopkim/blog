@@ -7,7 +7,7 @@ import { getPosts } from '../lib/posts';
 /**
  * @param {import('astro').APIContext} context
  */
-export async function get(context) {
+export async function GET(context) {
   const posts = await getPosts();
   return rss({
     title: SITE_TITLE,
