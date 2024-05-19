@@ -11,6 +11,8 @@ const { title, description } = Astro.props;
 
 <script>
   import 'tachyonjs';
+  /* eslint-disable prettier/prettier */
+  // https://github.com/withastro/prettier-plugin-astro/issues/407
   import { posthog } from 'posthog-js';
 
   posthog.init('phc_7DCNH1W0INf8s5My3H1qJiOuGjI9prPLZlnqB4fFGfG', {

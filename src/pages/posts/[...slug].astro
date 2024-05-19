@@ -39,8 +39,8 @@ const cover = post.data.cover ? getCover(post.id) : undefined;
 async function getCover(id: string): Promise<{ default: ImageMetadata }> {
   return await import(
     `../../content/posts/${id.replace(path.extname(id), '')}.png`
-  ).catch(() =>
-    import(`../../content/posts/${id.replace(path.extname(id), '')}.jpg`)
+  ).catch(
+    () => import(`../../content/posts/${id.replace(path.extname(id), '')}.jpg`),
   );
 }
 ---

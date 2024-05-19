@@ -48,7 +48,7 @@ const entries: Entry[] = posts.reduce<Entry[]>((entries, post) => {
               <FormattedDate date={content.data.date} />
               <a href={content.$link}>{content.data.title}</a>
             </li>
-          )
+          ),
         )
       }
     </ul>
