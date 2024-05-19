@@ -79,17 +79,23 @@ function fileSystemPath(src: string) {
 
       const placeholder =
         this.querySelector<HTMLImageElement>('img.placeholder');
-      if (placeholder === null) {
-        return;
-      }
       const img = this.querySelector<HTMLImageElement>('img:not(.placeholder)');
+
+      function onImageLoad() {
+        if (placeholder === null) {
+          return;
+        }
+        placeholder.dataset['hidden'] = String(true);
+      }
+
       if (img === null) {
         return;
       }
-
-      img.addEventListener('load', () => {
-        placeholder.dataset['hidden'] = String(true);
-      });
+      if (img.complete) {
+        onImageLoad();
+      } else {
+        img.addEventListener('load', onImageLoad);
+      }
     }
   }
 
