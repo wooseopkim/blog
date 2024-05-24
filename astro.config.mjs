@@ -7,4 +7,8 @@ export default defineConfig({
   site: 'https://blog.wooseop.kim',
   integrations: [mdx(), sitemap()],
   compressHTML: true,
+  trailingSlash: 'never',
+  build: {
+    format: 'file',
+  },
 });
