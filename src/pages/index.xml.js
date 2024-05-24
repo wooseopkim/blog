@@ -1,7 +1,7 @@
 // @ts-check
 
 import rss from '@astrojs/rss';
-import { SITE_TITLE, SITE_DESCRIPTION } from '../consts';
+import { SITE_DESCRIPTION, SITE_TITLE } from '../consts';
 import { getPosts } from '../lib/posts';
 
 /**
@@ -18,5 +18,6 @@ export async function GET(context) {
       pubDate: post.data.date,
       link: post.$link,
     })),
+    trailingSlash: false,
   });
 }
