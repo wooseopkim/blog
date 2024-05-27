@@ -1,38 +1,36 @@
 ---
-import Layout from '@layouts/Layout.astro';
 import FormattedDate from '@components/FormattedDate.astro';
-import { type Post, getPosts } from '@lib/posts';
 import Navigation from '@components/Navigation.astro';
+import Layout from '@layouts/Layout.astro';
+import { getPosts, type Post } from '@lib/posts';
 
 const posts = await getPosts();
 
-type Entry =
-  | {
-      type: 'header';
-      content: string;
-    }
-  | {
-      type: 'article';
-      content: Post;
-    };
+interface Entry {
+  year: number;
+  posts: Post[];
+}
 
 const entries: Entry[] = posts.reduce<Entry[]>((entries, post) => {
+  console.log({ post });
   const currentYear = post.data.date.getFullYear();
   const lastEntry = entries[entries.length - 1];
-  const yearChanged =
-    lastEntry?.type === 'article' &&
-    lastEntry.content.data.date.getFullYear() !== currentYear;
-  const header: Entry[] =
-    entries.length === 0 || yearChanged
-      ? [
-          {
-            type: 'header',
-            content: String(currentYear),
-          } as const,
-        ]
-      : [];
-
-  return [...entries, ...header, { type: 'article', content: post }];
+  const yearChanged = lastEntry?.year !== currentYear;
+  return yearChanged
+    ? [
+        ...entries,
+        {
+          year: currentYear,
+          posts: [post],
+        },
+      ]
+    : [
+        ...entries.slice(0, entries.length - 1),
+        {
+          ...lastEntry,
+          posts: [...lastEntry.posts, post],
+        },
+      ];
 }, []);
 ---
 
@@ -40,16 +38,19 @@ const entries: Entry[] = posts.reduce<Entry[]>((entries, post) => {
   <main>
     <ul>
       {
-        entries.map(({ type, content }) =>
-          type === 'header' ? (
-            <h3>{content}</h3>
-          ) : (
-            <li>
-              <FormattedDate date={content.data.date} />
-              <a href={content.$link}>{content.data.title}</a>
-            </li>
-          ),
-        )
+        entries.map(({ year, posts }) => (
+          <>
+            <h3>{year}</h3>
+            <ul>
+              {posts.map((post) => (
+                <li>
+                  <FormattedDate date={post.data.date} />
+                  <a href={post.$link}>{post.data.title}</a>
+                </li>
+              ))}
+            </ul>
+          </>
+        ))
       }
     </ul>
     <Navigation to="home" />
@@ -76,7 +77,7 @@ const entries: Entry[] = posts.reduce<Entry[]>((entries, post) => {
     }
   }
 
-  ul ~ :global(:last-child) {
+  ul ~ :global(a:last-child) {
     margin-block-start: 2rem;
     text-align: end;
   }
