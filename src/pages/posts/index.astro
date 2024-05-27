@@ -12,7 +12,6 @@ interface Entry {
 }
 
 const entries: Entry[] = posts.reduce<Entry[]>((entries, post) => {
-  console.log({ post });
   const currentYear = post.data.date.getFullYear();
   const lastEntry = entries[entries.length - 1];
   const yearChanged = lastEntry?.year !== currentYear;
