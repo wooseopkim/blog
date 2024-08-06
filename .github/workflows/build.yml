@@ -1,6 +1,7 @@
 name: Build blog static files from source
 
 on:
+  pull_request:
   push:
     branches:
       - main
