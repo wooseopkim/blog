@@ -16,7 +16,7 @@
     "@astrojs/mdx": "^3.0.0",
     "@astrojs/rss": "^4.0.6",
     "@astrojs/sitemap": "^1.3.2",
-    "astro": "^4.8.6",
+    "astro": "^4.16.0",
     "modern-normalize": "^2.0.0",
     "posthog-js": "^1.63.4",
     "sharp": "^0.32.6",
