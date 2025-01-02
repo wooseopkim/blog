@@ -20,7 +20,6 @@
     "modern-normalize": "^2.0.0",
     "posthog-js": "^1.63.4",
     "sharp": "^0.32.6",
-    "tachyonjs": "^2.0.1",
     "thumbhash": "^0.1.1"
   },
   "devDependencies": {

@@ -7,4 +7,3 @@ Repository for my personal blog. The live blog is at <https://blog.wooseop.kim>.
 - Written in [Astro](https://github.com/withastro/astro).
 - Has an RSS feed.
 - Uses ["cookieless"](https://posthog.com/tutorials/cookieless-tracking) [PostHog](https://github.com/PostHog/posthog) for analytics.
-- Prerenders links with [`Tachyon`](https://github.com/weebney/tachyon/).
