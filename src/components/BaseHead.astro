@@ -34,3 +34,10 @@ const { title, description, image } = Astro.props;
 {image && <meta property="og:image" content={new URL(image, Astro.url)} />}
 
 <meta name="referrer" content="same-origin" />
+
+<link
+  rel="alternate"
+  type="application/rss+xml"
+  title="RSS"
+  href="/index.xml"
+/>
