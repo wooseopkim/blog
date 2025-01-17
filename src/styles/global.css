@@ -9,7 +9,8 @@
 }
 
 *, code {
-  font-family: '돋움체', 'Courier New', Courier, monospace;
+  /* https://systemfontstack.com/ */
+  font-family: Menlo, Consolas, Monaco, 'Liberation Mono', 'Lucida Console', '돋움체', 'Courier New', Courier, monospace;
 }
 
 main {
