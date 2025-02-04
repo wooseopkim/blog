@@ -132,6 +132,17 @@ async function getCover(id: string): Promise<{ default: ImageMetadata }> {
       border: 1px solid black;
       padding: 0.5rem;
     }
+
+    & :global(:is(h1, h2, h3, h4, h5, h6) a) {
+      text-decoration: none;
+
+      & :global(.icon.icon-link) {
+        &::before {
+          content: '>';
+          margin-inline-end: 0.5ch;
+        }
+      }
+    }
   }
 
   footer {
