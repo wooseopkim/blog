@@ -5,6 +5,9 @@
     "[javascript][typescript]": {
         "editor.defaultFormatter": "dbaeumer.vscode-eslint"
     },
+    "[yaml][github-actions-workflow]": {
+        "editor.defaultFormatter": "bluebrown.yamlfmt"
+    },
     "editor.codeActionsOnSave": {
         "source": "explicit"
     },
