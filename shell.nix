@@ -1,7 +1,7 @@
 let
   nixpkgs = fetchTarball {
-    url = "https://github.com/NixOS/nixpkgs/archive/refs/tags/24.11-beta.tar.gz";
-    sha256 = "1gx0hihb7kcddv5h0k7dysp2xhf1ny0aalxhjbpj2lmvj7h9g80a";
+    url = "https://github.com/NixOS/nixpkgs/archive/00769b0532199db4e1bda59865f00f3a86232c75.tar.gz";
+    sha256 = "1bs1mvzhba0rpm49zsn3rxikh0zgc7s2z7nbc4c7ldr0pxb6mxxq";
   };
 in
 {
