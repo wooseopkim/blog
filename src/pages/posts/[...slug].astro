@@ -65,25 +65,6 @@ async function getCover(id: string): Promise<{ default: ImageMetadata }> {
           {context.next && <a href={context.next.$link}>다음</a>}
         </nav>
       </footer>
-      {
-        post.data.comments && (
-          <script
-            is:inline
-            src="https://giscus.of.wooseop.kim/client.js"
-            data-repo="wooseopkim/blog-comments"
-            data-repo-id="blog-comments"
-            data-category-id="general"
-            data-mapping="pathname"
-            data-strict="0"
-            data-reactions-enabled="1"
-            data-emit-metadata="0"
-            data-input-position="top"
-            data-theme="noborder_light"
-            data-lang="en"
-            async
-          />
-        )
-      }
     </article>
   </main>
 </Layout>
@@ -170,9 +151,5 @@ async function getCover(id: string): Promise<{ default: ImageMetadata }> {
 
   footer nav:last-child > :global(:last-child) {
     margin-inline-end: revert;
-  }
-
-  :global(.giscus) {
-    margin-block-start: 2rem;
   }
 </style>
