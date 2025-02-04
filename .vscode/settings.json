@@ -1,16 +1,13 @@
 {
+    "[astro]": {
+        "editor.defaultFormatter": "astro-build.astro-vscode"
+    },
+    "[javascript][typescript]": {
+        "editor.defaultFormatter": "dbaeumer.vscode-eslint"
+    },
     "editor.codeActionsOnSave": {
-        "source.organizeImports": "always",
-        "source.fixAll": "always"
+        "source": "explicit"
     },
-    "eslint.options": {
-        "overrideConfigFile": "./.eslintrc.cjs"
-    },
-    "eslint.format.enable": true,
-    "[javascript]": {
-        "editor.defaultFormatter": "dbaeumer.vscode-eslint"
-    },
-    "[typescript]": {
-        "editor.defaultFormatter": "dbaeumer.vscode-eslint"
-    }
+    "editor.defaultFormatter": "EditorConfig.EditorConfig",
+    "editor.formatOnSave": true
 }
