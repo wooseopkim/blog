@@ -20,11 +20,13 @@ jobs:
       - name: Set timezone
         run: sudo timedatectl set-timezone Asia/Seoul
 
-      - uses: volta-cli/action@v4
-      - run: npm ci
-      - run: npm run lint
-      - run: npm run check
-      - run: npm run build
+      - uses: oven-sh/setup-bun@v2
+        with:
+          bun-version-file: package.json
+      - run: bun install --frozen-lockfile
+      - run: bun run lint
+      - run: bun run check
+      - run: bun run build
 
       - name: Upload Artifacts
         uses: actions/upload-pages-artifact@v3
