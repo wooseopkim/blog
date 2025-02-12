@@ -23,5 +23,5 @@ jobs:
         run: |
           git submodule update --remote "$SUBMODULE_PATH"
           git add "$SUBMODULE_PATH"
-          git commit -m "Update submodule: $(git submodule status $SUBMODULE_PATH)"
+          git commit -m "Update submodule: $(git submodule status "$SUBMODULE_PATH")"
           git push
