@@ -25,9 +25,9 @@ jobs:
         with:
           bun-version-file: .bun-version
       - run: bun install --frozen-lockfile
+      - run: bun run build
       - run: bun run lint
       - run: bun run check
-      - run: bun run build
 
       - name: Upload Artifacts
         uses: actions/upload-pages-artifact@v3
