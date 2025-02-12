@@ -4,6 +4,7 @@
         "EditorConfig.EditorConfig",
         "astro-build.astro-vscode",
         "arahata.linter-actionlint",
-        "bluebrown.yamlfmt"
+        "unifiedjs.vscode-mdx",
+        "mkhl.direnv"
     ]
 }
