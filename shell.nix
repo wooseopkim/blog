@@ -7,7 +7,7 @@ mkShellNoCC {
     bun
     nixfmt-rfc-style
     nixd
-    yamlfmt
+    act
   ];
 
   LD_LIBRARY_PATH = "${stdenv.cc.cc.lib}/lib";
