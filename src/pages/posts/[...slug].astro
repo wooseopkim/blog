@@ -98,10 +98,7 @@ async function getCover(id: string): Promise<{ default: ImageMetadata }> {
 
     & > :global(p) {
       text-align: justify;
-    }
-
-    & > :global(p)::first-letter {
-      margin-inline-start: 2ch;
+      text-indent: 2ch;
     }
 
     & :global(hr) {
