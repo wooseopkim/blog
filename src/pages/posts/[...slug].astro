@@ -111,6 +111,14 @@ async function getCover(id: string): Promise<{ default: ImageMetadata }> {
       content: '//////////';
     }
 
+    & :global(pre[data-language]) {
+      padding-block-start: 0.5em;
+      padding-block-end: 0.5em;
+      white-space: pre-wrap;
+      margin-inline-start: 1rem;
+      margin-inline-end: 1rem;
+    }
+
     & :global(code) {
       color: white;
       background: black;
