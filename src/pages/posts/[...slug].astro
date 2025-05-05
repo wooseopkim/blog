@@ -40,7 +40,7 @@ async function getCover(id: string): Promise<{ default: ImageMetadata }> {
   return await import(
     `../../content/posts/${id.replace(path.extname(id), '')}.png`
   ).catch(
-    () => import(`../../content/posts/${id.replace(path.extname(id), '')}.jpg`)
+    () => import(`../../content/posts/${id.replace(path.extname(id), '')}.jpg`),
   );
 }
 ---
