@@ -118,6 +118,10 @@ async function getCover(id: string): Promise<{ default: ImageMetadata }> {
       font-size: 95%;
     }
 
+    & :global(pre[data-language] code) {
+      background: unset;
+    }
+
     & :global(a code) {
       background: LinkText;
       background: -webkit-link !important;
