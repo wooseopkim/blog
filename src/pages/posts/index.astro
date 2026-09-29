@@ -11,28 +11,26 @@ interface Entry {
   posts: Post[];
 }
 
-const entries: Entry[] = posts
-  .filter(({ data }) => !data.draft)
-  .reduce<Entry[]>((entries, post) => {
-    const currentYear = post.data.date.getFullYear();
-    const lastEntry = entries[entries.length - 1];
-    const yearChanged = lastEntry?.year !== currentYear;
-    return yearChanged
-      ? [
-          ...entries,
-          {
-            year: currentYear,
-            posts: [post],
-          },
-        ]
-      : [
-          ...entries.slice(0, entries.length - 1),
-          {
-            ...lastEntry,
-            posts: [...lastEntry.posts, post],
-          },
-        ];
-  }, []);
+const entries: Entry[] = posts.reduce<Entry[]>((entries, post) => {
+  const currentYear = post.data.date.getFullYear();
+  const lastEntry = entries[entries.length - 1];
+  const yearChanged = lastEntry?.year !== currentYear;
+  return yearChanged
+    ? [
+        ...entries,
+        {
+          year: currentYear,
+          posts: [post],
+        },
+      ]
+    : [
+        ...entries.slice(0, entries.length - 1),
+        {
+          ...lastEntry,
+          posts: [...lastEntry.posts, post],
+        },
+      ];
+}, []);
 ---
 
 <Layout title="기록">

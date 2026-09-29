@@ -10,7 +10,10 @@ const collection = 'posts';
 
 export async function getPosts(): Promise<Post[]> {
   const posts = await getCollection(collection);
-  return posts.sort(latest).map(withLink);
+  return posts
+    .filter((x) => !x.data.draft)
+    .sort(latest)
+    .map(withLink);
 }
 
 function latest(a: RawPost, b: RawPost) {
