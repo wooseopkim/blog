@@ -1,9 +1,9 @@
 {
   "dependencies": {
-    "@astrojs/mdx": "^4.0.8",
+    "@astrojs/mdx": "^5.0.4",
     "@astrojs/rss": "^4.0.11",
     "@astrojs/sitemap": "^3.2.1",
-    "astro": "^5.2.4",
+    "astro": "^6.2.2",
     "modern-normalize": "^3.0.1",
     "posthog-js": "^1.215.3",
     "sharp": "^0.34.0",
